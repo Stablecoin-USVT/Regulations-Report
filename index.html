@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USVT Regulatory Report - HKMA Ordinance No. 17-2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #00074A;
+            background: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #000E42 0%, #1a237e 100%);
+            color: white;
+            padding: 100px 60px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .header .subtitle {
+            color: #00074A;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .access-button {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .access-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .floating-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #00074A, #1a2f7a);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 8px 25px rgba(0, 7, 74, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            cursor: pointer;
+        }
+
+        .floating-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0, 7, 74, 0.4);
+        }
+
+        /* Modal Styles - Enhanced for visibility */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 10000;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0, 7, 74, 0.3);
+            animation: slideIn 0.3s ease;
+            margin: auto;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: scale(0.7);
+            }
+            to { 
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .modal-title {
+            color: #00074A;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .modal-subtitle {
+            color: #666;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .modal-summary {
+            background: #fafbff;
+            border: 2px solid #e6e9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #00074A;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .modal-btn-primary {
+            background: linear-gradient(135deg, #00074A, #1a2f7a);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 7, 74, 0.3);
+        }
+
+        .modal-btn-secondary {
+            background: white;
+            color: #00074A;
+            border: 2px solid #e6e9ff;
+        }
+
+        .modal-btn-secondary:hover {
+            border-color: #00074A;
+            box-shadow: 0 4px 15px rgba(0, 7, 74, 0.1);
+        }
+
+        .modal-btn-close {
+            background: #f8f9fa;
+            color: #666;
+            border: 2px solid #e9ecef;
+        }
+
+        .modal-btn-close:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #00074A;
+        }
+
+        .stats-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 0 0 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: white;
+            color: #00074A;
+            padding: 20px 15px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 7, 74, 0.1);
+            transition: transform 0.3s ease;
+            border: 2px solid #f0f4ff;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            border-color: #00074A;
+            box-shadow: 0 8px 30px rgba(0, 7, 74, 0.15);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: #00074A;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.8;
+            line-height: 1.2;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 7, 74, 0.08);
+            border: 1px solid #f0f4ff;
+        }
+
+        .section-title {
+            color: #00074A;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 3px solid #00074A;
+            padding-bottom: 15px;
+        }
+
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .highlight-card {
+            background: #fafbff;
+            border: 2px solid #e6e9ff;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .highlight-card:hover {
+            border-color: #00074A;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 7, 74, 0.1);
+        }
+
+        .highlight-card h3 {
+            color: #00074A;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .highlight-card p {
+            color: #00074A;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .allocation-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .allocation-card {
+            background: linear-gradient(135deg, #00074A, #1a2f7a);
+            color: white;
+            padding: 20px 15px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            flex: 1;
+            min-width: 0;
+        }
+
+        .allocation-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 7, 74, 0.3);
+        }
+
+        .allocation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+        }
+
+        .allocation-percentage {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .allocation-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .allocation-description {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            line-height: 1.3;
+        }
+
+        .footer {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 7, 74, 0.08);
+            margin-top: 30px;
+            border: 1px solid #f0f4ff;
+        }
+
+        .footer-meta {
+            color: #00074A;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .footer-description {
+            color: #00074A;
+            opacity: 0.7;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .floating-button {
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .allocation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>USVT Regulatory Report</h1>
+            <div class="status-badge">100% Compliance Framework</div>
+            <br>
+            <a href="#" class="access-button" id="header-access-btn">📄 Access Complete Regulatory Report</a>
+        </div>
+
+        <!-- Key Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">HKD 25M</div>
+                <div class="stat-label">Paid-Up Capital</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Reserve Backing</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">Q1 2026</div>
+                <div class="stat-label">Sandbox Target</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Monitoring</div>
+            </div>
+        </div>
+
+        <!-- Core Information -->
+        <div class="content-section">
+            <div class="highlight-grid">
+                <div class="highlight-card">
+                    <h3>🎯 Core Mission</h3>
+                    <p>Demonstrate USVT's comprehensive understanding of Ordinance No. 17 – 2025 and affirm alignment with requirements across legal, governance, reserve, technical, and operational domains.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>🔒 Legal Framework</h3>
+                    <p>Hong Kong-incorporated SPV with complete segregation of token issuance from reserve custody, meeting all minimum criteria in Schedule 2 Part 2 of the Ordinance.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>⚡ Technical Infrastructure</h3>
+                    <p>Hybrid Layer-1/2 blockchain with quantum-resistant cryptographic algorithms, automated smart contracts, and real-time monitoring dashboards for optimal security.</p>
+                </div>
+                <div class="highlight-card">
+                    <h3>🌍 Governance Structure</h3>
+                    <p>Independent board committees for Risk, Audit, and Compliance, alongside a dedicated Shariah Supervisory Committee ensuring robust oversight and accountability.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reserve Asset Allocation -->
+        <div class="content-section">
+            <h2 class="section-title">Reserve Asset Allocation Framework</h2>
+            <div class="allocation-grid">
+                <div class="allocation-card">
+                    <div class="allocation-percentage">75%</div>
+                    <div class="allocation-title">USD Cash & Equivalents</div>
+                    <div class="allocation-description">Held in segregated trust accounts with independent trustees, ensuring immediate liquidity and compliance with HKMA requirements</div>
+                </div>
+                <div class="allocation-card">
+                    <div class="allocation-percentage">10%</div>
+                    <div class="allocation-title">High-Grade Sukuk</div>
+                    <div class="allocation-description">Investment-grade Shariah-compliant securities providing stability and diversification within regulatory guidelines</div>
+                </div>
+                <div class="allocation-card">
+                    <div class="allocation-percentage">10%</div>
+                    <div class="allocation-title">Islamic Instruments</div>
+                    <div class="allocation-description">Other approved Shariah-compliant financial instruments for enhanced portfolio resilience and compliance</div>
+                </div>
+                <div class="allocation-card">
+                    <div class="allocation-percentage">5%</div>
+                    <div class="allocation-title">Allocated Gold</div>
+                    <div class="allocation-description">Physical allocated gold reserves providing hedge against currency volatility and additional asset backing</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-meta">July 2025 | HKMA Submission | Confidential | Version 2.0</div>
+            <p class="footer-description">This pre-engagement report demonstrates USVT's readiness for Hong Kong's stablecoin licensing framework, establishing a new standard for regulatory compliance and technological innovation in digital finance.</p>
+        </div>
+
+        <!-- Floating Button -->
+        <a href="#" class="floating-button" id="floating-access-btn">📋 Regulatory Document</a>
+    </div>
+
+    <!-- MODAL HTML - FIXED VERSION -->
+    <div id="documentModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" id="closeModalBtn">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title">USVT Regulatory Report</h2>
+                <p class="modal-subtitle">HKMA Ordinance No. 17-2025 Compliance Documentation</p>
+            </div>
+            
+            <div class="modal-summary">
+                <strong>📋 Document Summary:</strong><br>
+                This comprehensive 21-page regulatory positioning report demonstrates USVT's full alignment with Hong Kong's new stablecoin licensing framework, covering legal structure, governance, reserve management, technical infrastructure, and operational compliance requirements.
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-primary" id="accessDocBtn">
+                    📖 View Document
+                </button>
+                <button class="modal-btn modal-btn-secondary" id="downloadDocBtn">
+                    📥 Download PDF
+                </button>
+                <button class="modal-btn modal-btn-close" id="closeModalBtn2">
+                    ❌ Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 USVT Regulatory Report - Fixed Version Loading...');
+            
+            // Get modal element
+            const modal = document.getElementById('documentModal');
+            
+            // Get trigger buttons - FIXED SELECTORS
+            const headerBtn = document.getElementById('header-access-btn');
+            const floatingBtn = document.getElementById('floating-access-btn');
+            
+            // Get modal action buttons
+            const accessBtn = document.getElementById('accessDocBtn');
+            const downloadBtn = document.getElementById('downloadDocBtn');
+            const closeBtn1 = document.getElementById('closeModalBtn');
+            const closeBtn2 = document.getElementById('closeModalBtn2');
+
+            console.log('✅ All elements found:', {
+                modal: !!modal,
+                headerBtn: !!headerBtn,
+                floatingBtn: !!floatingBtn,
+                accessBtn: !!accessBtn,
+                downloadBtn: !!downloadBtn,
+                closeBtn1: !!closeBtn1,
+                closeBtn2: !!closeBtn2
+            });
+
+            // Helper functions
+            function showModal() {
+                console.log('📖 Opening modal...');
+                modal.style.display = 'flex';
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeModal() {
+                console.log('❌ Closing modal...');
+                modal.style.display = 'none';
+                modal.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+
+            // Setup trigger button event listeners
+            if (headerBtn) {
+                headerBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('🔘 Header button clicked');
+                    showModal();
+                });
+            }
+
+            if (floatingBtn) {
+                floatingBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('🔘 Floating button clicked');
+                    showModal();
+                });
+            }
+
+            // Setup modal action buttons
+            if (accessBtn) {
+                accessBtn.addEventListener('click', function() {
+                    console.log('📖 Access Document clicked');
+                    alert('📄 Opening full regulatory report...\n\nThis would normally open the complete 21-page USVT regulatory document covering:\n\n• Legal Structure & Licensing\n• Governance Framework\n• Reserve Management\n• Technical Infrastructure\n• Compliance Standards\n• Risk Management\n• Implementation Roadmap');
+                    closeModal();
+                });
+            }
+
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function() {
+                    console.log('📥 Download Document clicked');
+                    // Create a mock download experience
+                    const link = document.createElement('a');
+                    link.href = 'data:text/plain;charset=utf-8,USVT Regulatory Report - HKMA Ordinance No. 17-2025%0A%0AThis would be the complete regulatory positioning report demonstrating USVT\'s compliance with Hong Kong\'s stablecoin licensing framework.';
+                    link.download = 'USVT-Regulatory-Report.txt';
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    
+                    alert('📥 Download started!\n\nThe USVT Regulatory Report has been downloaded to your device.');
+                    closeModal();
+                });
+            }
+
+            // Setup close buttons
+            if (closeBtn1) {
+                closeBtn1.addEventListener('click', closeModal);
+            }
+
+            if (closeBtn2) {
+                closeBtn2.addEventListener('click', closeModal);
+            }
+
+            // Click outside to close
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Escape key to close
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && modal.style.display === 'flex') {
+                    closeModal();
+                }
+            });
+
+            // Animate statistics on page load
+            const statNumbers = document.querySelectorAll('.stat-number');
+            statNumbers.forEach(stat => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.transform = 'scale(1.1)';
+                            setTimeout(() => {
+                                entry.target.style.transform = 'scale(1)';
+                            }, 200);
+                        }
+                    });
+                });
+                observer.observe(stat);
+            });
+
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.stat-card, .highlight-card, .allocation-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transition = 'all 0.3s ease';
+                });
+            });
+
+            console.log('🎉 All systems operational! Modal functionality ready.');
+        });
+    </script>
+</body>
+</html>

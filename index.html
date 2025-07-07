@@ -556,10 +556,7 @@
                 <p class="modal-subtitle">HKMA Ordinance No. 17-2025 Compliance Documentation</p>
             </div>
             
-            <div class="modal-summary">
-                <strong>📋 Document Summary:</strong><br>
-                This comprehensive 21-page regulatory positioning report demonstrates USVT's full alignment with Hong Kong's new stablecoin licensing framework, covering legal structure, governance, reserve management, technical infrastructure, and operational compliance requirements.
-            </div>
+
             
             <div class="modal-buttons">
                 <button class="modal-btn modal-btn-primary" id="accessDocBtn">
@@ -637,26 +634,35 @@
             // Setup modal action buttons
             if (accessBtn) {
                 accessBtn.addEventListener('click', function() {
-                    console.log('📖 Access Document clicked');
-                    alert('📄 Opening full regulatory report...\n\nThis would normally open the complete 21-page USVT regulatory document covering:\n\n• Legal Structure & Licensing\n• Governance Framework\n• Reserve Management\n• Technical Infrastructure\n• Compliance Standards\n• Risk Management\n• Implementation Roadmap');
-                    closeModal();
+                    console.log('📖 Access Document clicked - opening PDF...');
+                    try {
+                        window.open('file:///Users/aliyaramzan/Downloads/Hong%20Kong%20Monetary%20Authority%20(HKMA)%20under%20Ordinance%20No.%2017%20–%202025%20(8).pdf', '_blank');
+                        closeModal();
+                        console.log('✅ PDF opened successfully');
+                    } catch (error) {
+                        console.error('❌ Error opening PDF:', error);
+                        alert('Error opening document. Please ensure the PDF file is accessible at the specified location.');
+                    }
                 });
             }
 
             if (downloadBtn) {
                 downloadBtn.addEventListener('click', function() {
-                    console.log('📥 Download Document clicked');
-                    // Create a mock download experience
-                    const link = document.createElement('a');
-                    link.href = 'data:text/plain;charset=utf-8,USVT Regulatory Report - HKMA Ordinance No. 17-2025%0A%0AThis would be the complete regulatory positioning report demonstrating USVT\'s compliance with Hong Kong\'s stablecoin licensing framework.';
-                    link.download = 'USVT-Regulatory-Report.txt';
-                    link.style.display = 'none';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    
-                    alert('📥 Download started!\n\nThe USVT Regulatory Report has been downloaded to your device.');
-                    closeModal();
+                    console.log('📥 Download Document clicked - starting download...');
+                    try {
+                        const link = document.createElement('a');
+                        link.href = 'file:///Users/aliyaramzan/Downloads/Hong%20Kong%20Monetary%20Authority%20(HKMA)%20under%20Ordinance%20No.%2017%20–%202025%20(8).pdf';
+                        link.download = 'USVT-Regulatory-Report.pdf';
+                        link.style.display = 'none';
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        closeModal();
+                        console.log('✅ Download initiated successfully');
+                    } catch (error) {
+                        console.error('❌ Error downloading PDF:', error);
+                        alert('Error downloading document. Please ensure the PDF file is accessible at the specified location.');
+                    }
                 });
             }
 
